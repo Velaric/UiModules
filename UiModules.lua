@@ -1230,7 +1230,7 @@ function Creator.Disconnect()
 end
 
 Creator.Themes = Themes
-Creator.Theme = Creator.Theme or "Sunset"
+Creator.Theme = Creator.Theme or "Dark"
 
 function Creator.GetThemeProperty(Property)
 	local Theme = Creator.Themes[Creator.Theme]
@@ -1242,7 +1242,7 @@ end
 
 function Creator.UpdateTheme()
 	if not Creator.Themes[Creator.Theme] then
-		Creator.Theme = "Sunset"
+		Creator.Theme = "Dark"
 	end
 
 	for Instance, Object in next, Creator.Registry do
@@ -6079,10 +6079,9 @@ end
 local InterfaceManager = {} do
 	InterfaceManager.Folder = "FluentSettings"
 	InterfaceManager.Settings = {
-		Theme = "Sunset",
 		Acrylic = true,
 		Transparency = true,
-		MenuKeybind = "Insert"
+		MenuKeybind = "M"
 	}
 
 	function InterfaceManager:SetTheme(name)
@@ -6147,7 +6146,7 @@ local InterfaceManager = {} do
 			Title = "Theme",
 			Description = "Changes the interface theme.",
 			Values = Library.Themes,
-			Default = Settings.Theme,
+			Default = self.Library.Theme,
 			Callback = function(Value)
 				Library:SetTheme(Value)
 				Settings.Theme = Value
@@ -6212,7 +6211,7 @@ function Library:CreateWindow(Config)
 	Library.MinimizeKey = Config.MinimizeKey or Enum.KeyCode.LeftControl
 	Library.UseAcrylic = Config.Acrylic or false
 	Library.Acrylic = Config.Acrylic or false
-	Library.Theme = Config.Theme or "Sunset"
+	Library.Theme = Config.Theme or "Dark"
 	if Config.Acrylic then
 		Acrylic.init()
 	end
@@ -6287,10 +6286,10 @@ local httpService = game:GetService("HttpService")
 local InterfaceManager = {} do
 	InterfaceManager.Folder = "FluentSettings"
 	InterfaceManager.Settings = {
-		Theme = "Sunset",
+		Theme = "Dark",
 		Acrylic = true,
 		Transparency = true,
-		MenuKeybind = "Insert"
+		MenuKeybind = "LeftControl"
 	}
 
 	function InterfaceManager:SetFolder(folder)
@@ -6329,7 +6328,7 @@ local InterfaceManager = {} do
 		local path = self.Folder .. "/options.json"
 		if isfile(path) then
 			local data = readfile(path)
-			local success, decoded = pcall(httpService.JSONDecode, httpService, data)
+			local success, decoded = nil
 
 			if success then
 				for i, v in next, decoded do
@@ -6425,6 +6424,6 @@ UIStroke.Color = Color3.fromRGB(118,222,243)
 UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 UICorner.CornerRadius = UDim.new(1, 0)
 UICorner.Parent = ImageButton
-ImageButton.MouseButton1Click:Connect(function() game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.PageUp, false, game) end)
+ImageButton.MouseButton1Click:Connect(function() game:GetService("VirtualInputManager"):SendKeyEvent(true, Enum.KeyCode.End, false, game) end)
 task.wait(0.1)
 return Library, SaveManager, InterfaceManager, Mobile
